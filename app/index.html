@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="app">
+    <header>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Intranet PCIE</title>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/moment/min/moment.min.js"></script>
+        <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src="bower_components/fullcalendar/dist/lang/fr.js"></script>
+        <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css">
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css">
+        <link rel="stylesheet" href="app.css">
+    </header>
+    <body>
+
+        <intranet></intranet>
+
+        <script src="app.js"></script>
+        <script src="config.js"></script>
+        <script src="factories/authinterceptor.js"></script>
+        <script src="services/login.service.js"></script>
+        <script src="services/events.service.js"></script>
+        <script src="services/role.service.js"></script>
+        <script src="services/admin.service.js"></script>
+        <script src="components/intranet/intranet.component.js"></script>
+        <script src="components/login/login.component.js"></script>
+        <script src="components/navigation/navigation.component.js"></script>
+        <script src="components/admin/creation/creation.component.js"></script>
+        <script src="components/home/home.component.js"></script>
+    </body>
+</html>

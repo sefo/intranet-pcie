@@ -1,0 +1,21 @@
+{
+  "name": "intranet_pcie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "seb",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-jwt": "^3.4.0",
+    "express-jwt-permissions": "^0.2.2",
+    "jsonwebtoken": "^7.0.1",
+    "pg-promise": "^5.1.0"
+  }
+}
