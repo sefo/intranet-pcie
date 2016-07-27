@@ -1,4 +1,4 @@
-V Afficher le bouton logout correctement
+﻿V Afficher le bouton logout correctement
 V ajouter un loader
 V ne peut pas aller sur login si déjà loggé
 V ajouter des roles (admin...etc.)
@@ -27,3 +27,12 @@ voir comment accéder au site depuis un autre pc que localhost
 VALIDATION! serveur et ihm (object complet, email n'existe pas déjà)
 Ajouter des growl d'erreur et confirmation
 CRUD utilisateur en entier, liste + edit + delete (mark as inactive)
+-------------------
+echo "# intranet-pcie" >> README.md
+git init
+git add *.*
+git ls-files
+git commit -m "initial commit"
+git remote add origin https://github.com/sefo/intranet-pcie.git
+git push -u origin master
+git push -u origin master
