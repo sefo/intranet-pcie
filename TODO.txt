@@ -6,15 +6,18 @@ V faire une page de création réservée aux admins: formulaire OK
 V rajouter lien vers base et liste déroulante avec les rôles à remplir: OK
 V créer utilisateur
 V Mise en place des permissions sur l'api (normal + admin) jwt-permissions
--------------------
-lier le calendrier à la base (pour l'utilisateur concerné)
+V lier le calendrier à la base (pour l'utilisateur concerné)
 	V création schéma pgsql
     V requete dans server app /api/absence et /api/admin/absences (avec utilisateur id en param)
     V appel api dans ihm (console.log)
     V affichage résultat dans calendrier
     V récupérer les absences à l'année
-    quand l'année change, faire une nouvelle requête
 -------------------
+
+Création absence: affichage formulaire sur click cellulle (modal? attention responsiveness)
+
+-------------------
+! quand l'année change, faire une nouvelle requête
 mieux organiser le code server et mettre les dao et les requête dans un fichier séparé
 pouvoir supprimer un évènement
 faire un bouton enregistrer pour sauver les events en base
@@ -23,7 +26,6 @@ faire un bouton valider qui envoit les event dans une table pour la RH
 voir comment fonctionnent les notifications de slack
 voir comment envoyer des mails de puis node
 voir comment accéder au site depuis un autre pc que localhost
--------------------
 VALIDATION! serveur et ihm (object complet, email n'existe pas déjà)
 Ajouter des growl d'erreur et confirmation
 CRUD utilisateur en entier, liste + edit + delete (mark as inactive)

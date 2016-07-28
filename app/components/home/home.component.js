@@ -19,6 +19,12 @@ function homeController(eventService, uiCalendarConfig) {
     this.user = {};
     this.events = [];
     this.eventSource = {};
+    this.newEvent = {
+        showEventForm: false,
+        start: null,
+        title: null,
+        className: null
+    };
     this.config =  {
         calendar:{
             lang: 'fr',
@@ -61,8 +67,10 @@ function homeController(eventService, uiCalendarConfig) {
         console.log(result);
     };
     function dayClick(date, jsEvent, view) {
-        var tempEventSource = {events: [{title: "temp event", start: date.format().toString(), className: 'RTT'}]};
-        view.calendar.addEventSource(tempEventSource);
+        vm.newEvent.showEventForm = true;
+        vm.newEvent.start = date.format().toString();
+        // var tempEventSource = {events: [{title: "temp event", start: date.format().toString(), className: 'RTT'}]};
+        // view.calendar.addEventSource(tempEventSource);
     };
     function eventDrop(event, delta, revertFunc) {
         var endDate = event.end == null ? null : event.end.format().toString();

@@ -5,5 +5,11 @@
             <button ng-click="$ctrl.nextMonth();"> &gt; </button>
             <div calendar="absences" ui-calendar="$ctrl.config.calendar" ng-model="$ctrl.eventSource"></div>
         </div>
+        <div ng-if="$ctrl.newEvent.showEventForm" class="col-sm-6">
+            Absence le: {{ $ctrl.newEvent.start }}
+            <input type="text" placeholder="Titre">
+            <input type="text" placeholder="Type">
+            <button ng-click="$ctrl.newEvent.showEventForm = false;">Ok</button>
+        </div>
     </div>
 </section>
