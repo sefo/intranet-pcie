@@ -8,6 +8,15 @@ function eventService($http) {
                 return response;
             });
     };
+    this.enregistrerEvent = function(event) {
+        return $http.post('/api/absences/enregistrer', event).then(
+            function(response) {
+                return response.data;
+            },
+            function(response) {
+                return response;
+            });
+    };
 }
 
 angular

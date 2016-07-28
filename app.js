@@ -85,6 +85,21 @@ app.get('/api/absences/:y', function(req, res) {
   });
 });
 
+app.post('/api/absences/enregistrer', function (req, res) {
+  var parameters = {};
+  parameters.userId = req.user.id;
+  parameters.title = req.body.title;
+  parameters.start = req.body.start;
+  parameters.type = req.body.className;
+  db.none("insert into absence(type, validation, debut, fin, utilisateur, titre) values(1, 5, ${start}, ${start}, ${userId}, ${title})", parameters)
+    .then(function (data) {
+        res.send('ok');
+    })
+    .catch(function (error) {
+      res.send(error);
+    });
+});
+
 app.post('/api/admin/utilisateur/enregistrer', guard.check('admin'), function (req, res) {
   var utilisateur = req.body;
   bcrypt.hash(req.body.password, bcrypt.genSaltSync(8), null, function(err, hash) {

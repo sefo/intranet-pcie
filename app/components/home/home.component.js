@@ -41,6 +41,7 @@ function homeController(eventService, uiCalendarConfig) {
     };
     this.nextMonth = nextMonth;
     this.prevMonth = prevMonth;
+    this.addNewEvent = addNewEvent;
 
     // Contrairement à la page de login, le require n'est pas resolved tout de suite.
     // (dans login, le controller required est appellé dans une promise) donc a le temps d'être bindé
@@ -58,6 +59,18 @@ function homeController(eventService, uiCalendarConfig) {
     function prevMonth() {
         uiCalendarConfig.calendars['absences'].fullCalendar('prev');
     };
+    function addNewEvent() {
+        vm.newEvent.showEventForm = false;
+        var tempEventSource = {events: [{
+            title: vm.newEvent.title,
+            start: vm.newEvent.start,
+            className: vm.newEvent.className
+        }]};
+        uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', tempEventSource);
+        eventService.enregistrerEvent(vm.newEvent).then(function(data) {
+            console.log(data); //data.name = 'error' //data.detail
+        });
+    };
     
     function eventResize(event, delta, revertFunc) {
         var endDate = event.end.format().toString();
@@ -69,8 +82,6 @@ function homeController(eventService, uiCalendarConfig) {
     function dayClick(date, jsEvent, view) {
         vm.newEvent.showEventForm = true;
         vm.newEvent.start = date.format().toString();
-        // var tempEventSource = {events: [{title: "temp event", start: date.format().toString(), className: 'RTT'}]};
-        // view.calendar.addEventSource(tempEventSource);
     };
     function eventDrop(event, delta, revertFunc) {
         var endDate = event.end == null ? null : event.end.format().toString();
