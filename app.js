@@ -69,13 +69,16 @@ app.get('/api/roles/lister', function (req, res) {
   });
 });
 
-app.get('/api/absences', function(req, res) {
+app.get('/api/absences/:y', function(req, res) {
+  var parameters = {};
+  parameters.id = req.user.id;
+  parameters.y = req.params.y;
   var requete = "select a.titre as title, to_char(a.debut, 'YYYY-MM-DD') as start, to_char(a.fin, 'YYYY-MM-DD') as end, t.type_code as \"className\" from absence a \
         inner join utilisateur u on u.id = a.utilisateur \
         inner join absence_validation v on v.id = a.validation \
         inner join absence_type t on t.id = a.type \
-        where u.id = $1";
-	db.any(requete, req.user.id).then(function (data) {
+        where u.id = ${id} and extract(year from a.debut) = ${y}";
+	db.any(requete, parameters).then(function (data) {
     res.json({data});
   }).catch(function (error) {
 	  response.send(error);

@@ -1,7 +1,9 @@
 <section class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
-            <div calendar="absences" ui-calendar="$ctrl.config.calendar" ng-model="$ctrl.eventSources"></div>
+            <button ng-click="$ctrl.prevMonth();"> &lt; </button>
+            <button ng-click="$ctrl.nextMonth();"> &gt; </button>
+            <div calendar="absences" ui-calendar="$ctrl.config.calendar" ng-model="$ctrl.eventSource"></div>
         </div>
     </div>
 </section>

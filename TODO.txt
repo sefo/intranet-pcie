@@ -12,8 +12,8 @@ lier le calendrier à la base (pour l'utilisateur concerné)
     V requete dans server app /api/absence et /api/admin/absences (avec utilisateur id en param)
     V appel api dans ihm (console.log)
     V affichage résultat dans calendrier
-    les requetes acceptent un parametre pour selectionner un mois en particulier ou une année?
-    pouvoir changer de mois, nouvelle requête au mois et afficher
+    V récupérer les absences à l'année
+    quand l'année change, faire une nouvelle requête
 -------------------
 mieux organiser le code server et mettre les dao et les requête dans un fichier séparé
 pouvoir supprimer un évènement
@@ -34,5 +34,4 @@ git add *.*
 git ls-files
 git commit -m "initial commit"
 git remote add origin https://github.com/sefo/intranet-pcie.git
-git push -u origin master
 git push -u origin master

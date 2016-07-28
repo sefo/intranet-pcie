@@ -1,6 +1,6 @@
 function eventService($http) {
-    this.getEvents = function() {
-        return $http.get('/api/absences/').then(
+    this.getEvents = function(y) {
+        return $http.get('/api/absences/' + y).then(
             function(response) {
                 return response.data;
             },

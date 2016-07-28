@@ -13,27 +13,28 @@ var home = {
 
 function homeController(eventService, uiCalendarConfig) {
     var vm = this;
-    var date = new Date();
-    var m = date.getMonth();
-    var y = date.getFullYear();
+    var m = moment().format('M');
+    var y = moment().format('YYYY');
 
     this.user = {};
     this.events = [];
-    this.eventSources = {};
+    this.eventSource = {};
     this.config =  {
         calendar:{
             lang: 'fr',
             editable: true,
             header:{
-                left: 'month basicWeek',
+                left: '',
                 center: 'title',
-                right: 'today prev,next'
+                right: ''
             },
             eventResize: eventResize,
             dayClick: dayClick,
             eventDrop: eventDrop
         }
     };
+    this.nextMonth = nextMonth;
+    this.prevMonth = prevMonth;
 
     // Contrairement à la page de login, le require n'est pas resolved tout de suite.
     // (dans login, le controller required est appellé dans une promise) donc a le temps d'être bindé
@@ -42,14 +43,14 @@ function homeController(eventService, uiCalendarConfig) {
         // user infos depuis le components parent
         vm.user = vm.intranet.getUser();
         // liste d'events
-        eventService.getEvents().then(function(events) {
-            vm.events = events.data;
-            vm.eventSources = {
-                events: vm.events
-            };
-            // refresh events
-            uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', vm.eventSources);
-        });
+        renderCalendar(y);
+    };
+
+    function nextMonth() {
+        uiCalendarConfig.calendars['absences'].fullCalendar('next');
+    };
+    function prevMonth() {
+        uiCalendarConfig.calendars['absences'].fullCalendar('prev');
     };
     
     function eventResize(event, delta, revertFunc) {
@@ -69,6 +70,22 @@ function homeController(eventService, uiCalendarConfig) {
         console.log(moment(startDate, 'YYYY-MM-DD').toString());
         if(endDate != null)
             console.log(moment(endDate, 'YYYY-MM-DD').subtract(1, 's').toString());
+    };
+
+    function renderCalendar(y) {
+        // liste d'events
+        eventService.getEvents(y).then(function(events) {
+            vm.events = events.data;
+            vm.eventSource = {
+                events: vm.events
+            };
+            uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', vm.eventSource);
+            // vm.eventSource.events.splice(0, vm.eventSource.events);
+            // uiCalendarConfig.calendars['absences'].fullCalendar('removeEvents');
+            // uiCalendarConfig.calendars['absences'].fullCalendar('removeEventSource', vm.eventSource);
+            // uiCalendarConfig.calendars['absences'].fullCalendar('refetchEventSources', vm.eventSource);
+            // uiCalendarConfig.calendars['absences'].fullCalendar('rerenderEvents');
+        });
     };
 };
 
