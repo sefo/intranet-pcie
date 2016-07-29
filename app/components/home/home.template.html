@@ -8,7 +8,9 @@
         <div ng-if="$ctrl.newEvent.showEventForm" class="col-sm-6">
             Absence le: {{ $ctrl.newEvent.start }}
             <input type="text" ng-model="$ctrl.newEvent.title" placeholder="Titre">
-            <input type="text" ng-model="$ctrl.newEvent.className" placeholder="Type">
+            <select ng-model="$ctrl.newEvent.type" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
+                <option value="">Type</option>
+            </select>
             <button ng-click="$ctrl.addNewEvent();">Ok</button>
         </div>
     </div>

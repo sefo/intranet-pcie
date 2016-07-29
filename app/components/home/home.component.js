@@ -19,11 +19,12 @@ function homeController(eventService, uiCalendarConfig) {
     this.user = {};
     this.events = [];
     this.eventSource = {};
+    this.typeEvents = [];
     this.newEvent = {
         showEventForm: false,
         start: null,
         title: null,
-        className: null
+        type: null
     };
     this.config =  {
         calendar:{
@@ -51,6 +52,10 @@ function homeController(eventService, uiCalendarConfig) {
         vm.user = vm.intranet.getUser();
         // liste d'events
         renderCalendar(y);
+        // types d'absences
+        eventService.getTypes().then(function(data) {
+            vm.typeEvents = data.data;
+        });
     };
 
     function nextMonth() {
@@ -64,7 +69,7 @@ function homeController(eventService, uiCalendarConfig) {
         var tempEventSource = {events: [{
             title: vm.newEvent.title,
             start: vm.newEvent.start,
-            className: vm.newEvent.className
+            className: vm.newEvent.type.type_code
         }]};
         uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', tempEventSource);
         eventService.enregistrerEvent(vm.newEvent).then(function(data) {

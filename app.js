@@ -85,13 +85,21 @@ app.get('/api/absences/:y', function(req, res) {
   });
 });
 
+app.get('/api/absences/types/lister', function (req, res) {
+	db.any("select t.id, t.type, t.type_code from absence_type t").then(function (data) {
+    res.json({data});
+  }).catch(function (error) {
+	  response.send(error);
+  });
+});
+
 app.post('/api/absences/enregistrer', function (req, res) {
   var parameters = {};
   parameters.userId = req.user.id;
   parameters.title = req.body.title;
   parameters.start = req.body.start;
-  parameters.type = req.body.className;
-  db.none("insert into absence(type, validation, debut, fin, utilisateur, titre) values(1, 5, ${start}, ${start}, ${userId}, ${title})", parameters)
+  parameters.type = req.body.type.id;
+  db.none("insert into absence(type, validation, debut, fin, utilisateur, titre) values(${type}, 5, ${start}, ${start}, ${userId}, ${title})", parameters)
     .then(function (data) {
         res.send('ok');
     })

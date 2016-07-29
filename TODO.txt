@@ -13,15 +13,15 @@ V lier le calendrier à la base (pour l'utilisateur concerné)
     V affichage résultat dans calendrier
     V récupérer les absences à l'année
 V Création absence: affichage formulaire sur click cellulle (modal? attention responsiveness)
+V Création absence sur click: liste déroulante de types d'absences depuis DB
 -------------------
 
-Création absence sur click: liste déroulante de types d'absences depuis DB
-edit : save events
+mieux organiser le code server et mettre les dao et les requête dans des fichiers séparés
+edit event
 suppression event
 
 -------------------
 ! quand l'année change, faire une nouvelle requête
-mieux organiser le code server et mettre les dao et les requête dans un fichier séparé
 faire un bouton valider qui envoit les event dans une table pour la RH
 (liste des demandes d'absence avec filtre par nom, date, type, validé en attente ou refusé)
 voir comment fonctionnent les notifications de slack
