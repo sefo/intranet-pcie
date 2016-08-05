@@ -1,28 +1,36 @@
-﻿V Afficher le bouton logout correctement
-V ajouter un loader
-V ne peut pas aller sur login si déjà loggé
-V ajouter des roles (admin...etc.)
-V faire une page de création réservée aux admins: formulaire OK
-V rajouter lien vers base et liste déroulante avec les rôles à remplir: OK
-V créer utilisateur
-V Mise en place des permissions sur l'api (normal + admin) jwt-permissions
-V lier le calendrier à la base (pour l'utilisateur concerné)
-	V création schéma pgsql
-    V requete dans server app /api/absence et /api/admin/absences (avec utilisateur id en param)
-    V appel api dans ihm (console.log)
-    V affichage résultat dans calendrier
-    V récupérer les absences à l'année
-V Création absence: affichage formulaire sur click cellulle (modal? attention responsiveness)
-V Création absence sur click: liste déroulante de types d'absences depuis DB
-V mieux organiser le code server et mettre les dao et les requêtes dans des fichiers séparés
+﻿X Afficher le bouton logout correctement
+X ajouter un loader
+X ne peut pas aller sur login si déjà loggé
+X ajouter des roles (admin...etc.)
+X faire une page de création réservée aux admins: formulaire OK
+X rajouter lien vers base et liste déroulante avec les rôles à remplir: OK
+X créer utilisateur
+X Mise en place des permissions sur l'api (normal + admin) jwt-permissions
+X lier le calendrier à la base (pour l'utilisateur concerné)
+	X création schéma pgsql
+    X requete dans server app /api/absence et /api/admin/absences (avec utilisateur id en param)
+    X appel api dans ihm (console.log)
+    X affichage résultat dans calendrier
+    X récupérer les absences à l'année
+X Création absence: affichage formulaire sur click cellulle (modal? attention responsiveness)
+X Création absence sur click: liste déroulante de types d'absences depuis DB
+X mieux organiser le code server et mettre les dao et les requêtes dans des fichiers séparés
+X vérifier la façon de require les controllers. Besoin de redéfinir la DB à chaque fois? Et les bcrypt...etc?
+X suppression event
+    X faire la route pour la suppression
+    X ajouter une evènement click sur event
+    X créer un formulaire d'édition d'absence
+    XV la requête delete ne marche pas...
 -------------------
 
-vérifier la façon de require les controllers. Besoin de redéfinir la DB à chaque fois? Et les bcrypt...etc?
-ajouter du jsdoc
 edit event
-suppression event
+    (title, type)
+    trouver le moyen d'enregistrer quand on drag frop ou resize un event. (sauver à chaque fois automatiquement?)
+
+faire un formulaire d'ajout d'absence plus joli
 
 -------------------
+ajouter du jsdoc
 ! quand l'année change, faire une nouvelle requête
 faire un bouton valider qui envoit les event dans une table pour la RH
     faire interface RH

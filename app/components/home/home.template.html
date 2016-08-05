@@ -11,7 +11,14 @@
             <select ng-model="$ctrl.newEvent.type" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
                 <option value="">Type</option>
             </select>
-            <button ng-click="$ctrl.addNewEvent();">Ok</button>
+            <button ng-click="$ctrl.addNewEvent();">Enregistrer</button>
+            <button ng-click="$ctrl.newEvent.showEventForm = false;">Annuler</button>
+        </div>
+        <div ng-if="$ctrl.showEditingEventForm" class="col-sm-6">
+            <input type="text" ng-model="$ctrl.selectedEvent.title" placeholder="Titre">
+            <button ng-click="">Mettre à jour</button>
+            <button ng-click="$ctrl.showEditingEventForm = false;">Annuler</button>
+            <button ng-click="$ctrl.deleteEvent();">Supprimer</button>
         </div>
     </div>
 </section>

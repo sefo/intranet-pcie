@@ -7,7 +7,7 @@ function eventService($http) {
             function(response) {
                 return response;
             });
-    };
+    }
     this.getTypes = function(y) {
         return $http.get('/api/absences/types/lister').then(
             function(response) {
@@ -16,7 +16,7 @@ function eventService($http) {
             function(response) {
                 return response;
             });
-    };
+    }
     this.enregistrerEvent = function(event) {
         return $http.post('/api/absences/enregistrer', event).then(
             function(response) {
@@ -25,7 +25,16 @@ function eventService($http) {
             function(response) {
                 return response;
             });
-    };
+    }
+    this.supprimerEvent = function(eventId) {
+        return $http.get('/api/absences/supprimer/' + eventId).then(
+            function(response) {
+                return response.data;
+            },
+            function(response) {
+                return response;
+            });
+    }
 }
 
 angular

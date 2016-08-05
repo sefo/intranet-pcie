@@ -14,7 +14,7 @@ router.get('/:y', function(req, res) {
   var parameters = {};
   parameters.id = req.user.id;
   parameters.y = req.params.y;
-  var requete = "select a.titre as title, to_char(a.debut, 'YYYY-MM-DD') as start, to_char(a.fin, 'YYYY-MM-DD') as end, t.type_code as \"className\" from absence a \
+  var requete = "select a.id as eventid, a.titre as title, to_char(a.debut, 'YYYY-MM-DD') as start, to_char(a.fin, 'YYYY-MM-DD') as end, t.type_code as \"className\" from absence a \
         inner join utilisateur u on u.id = a.utilisateur \
         inner join absence_validation v on v.id = a.validation \
         inner join absence_type t on t.id = a.type \
@@ -46,6 +46,20 @@ router.post('/enregistrer', function (req, res) {
     })
     .catch(function (error) {
       res.send(error);
+    });
+});
+
+router.get('/supprimer/:eventId', function (req, res) {
+  var parameters = {};
+  parameters.userId = req.user.id;
+  parameters.eventId = parseInt(req.params.eventId, 10);
+  db.none("delete from absence where id = ${eventId} and utilisateur = ${userId}", parameters)
+    .then(function (data) {
+	    res.send('ok');
+    })
+    .catch(function (error) {
+      console.log(error);
+	    res.send(error);
     });
 });
 

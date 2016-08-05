@@ -18,6 +18,8 @@ function homeController(eventService, uiCalendarConfig) {
 
     this.user = {};
     this.events = [];
+    this.selectedEvent = {};
+    this.showEditingEventForm = false;
     this.eventSource = {};
     this.typeEvents = [];
     this.newEvent = {
@@ -35,6 +37,7 @@ function homeController(eventService, uiCalendarConfig) {
                 center: 'title',
                 right: ''
             },
+            eventClick: eventClick,
             eventResize: eventResize,
             dayClick: dayClick,
             eventDrop: eventDrop
@@ -43,6 +46,7 @@ function homeController(eventService, uiCalendarConfig) {
     this.nextMonth = nextMonth;
     this.prevMonth = prevMonth;
     this.addNewEvent = addNewEvent;
+    this.deleteEvent = deleteEvent;
 
     // Contrairement à la page de login, le require n'est pas resolved tout de suite.
     // (dans login, le controller required est appellé dans une promise) donc a le temps d'être bindé
@@ -56,14 +60,14 @@ function homeController(eventService, uiCalendarConfig) {
         eventService.getTypes().then(function(data) {
             vm.typeEvents = data.data;
         });
-    };
+    }
 
     function nextMonth() {
         uiCalendarConfig.calendars['absences'].fullCalendar('next');
-    };
+    }
     function prevMonth() {
         uiCalendarConfig.calendars['absences'].fullCalendar('prev');
-    };
+    }
     function addNewEvent() {
         vm.newEvent.showEventForm = false;
         var tempEventSource = {events: [{
@@ -75,26 +79,36 @@ function homeController(eventService, uiCalendarConfig) {
         eventService.enregistrerEvent(vm.newEvent).then(function(data) {
             console.log(data); //data.name = 'error' //data.detail
         });
-    };
+    }
     
+    function eventClick(calEvent, jsEvent, view) {
+        vm.selectedEvent = calEvent;
+        vm.showEditingEventForm = true;
+    }
     function eventResize(event, delta, revertFunc) {
         var endDate = event.end.format().toString();
         var startDate = event.start.format().toString();
         var result = moment(endDate, 'YYYY-MM-DD').subtract(1, 's').toString();
         console.log(startDate);
         console.log(result);
-    };
+    }
     function dayClick(date, jsEvent, view) {
         vm.newEvent.showEventForm = true;
         vm.newEvent.start = date.format().toString();
-    };
+    }
     function eventDrop(event, delta, revertFunc) {
         var endDate = event.end == null ? null : event.end.format().toString();
         var startDate = event.start.format().toString();
         console.log(moment(startDate, 'YYYY-MM-DD').toString());
         if(endDate != null)
             console.log(moment(endDate, 'YYYY-MM-DD').subtract(1, 's').toString());
-    };
+    }
+    function deleteEvent() {
+        eventService.supprimerEvent(vm.selectedEvent.eventid).then(function() {
+            vm.showEditingEventForm = false;
+            vm.selectedEvent = {};
+        });
+    }
 
     function renderCalendar(y) {
         // liste d'events
@@ -111,7 +125,7 @@ function homeController(eventService, uiCalendarConfig) {
             // uiCalendarConfig.calendars['absences'].fullCalendar('rerenderEvents');
         });
     };
-};
+}
 
 angular
     .module('app')
