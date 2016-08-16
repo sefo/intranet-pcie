@@ -19,6 +19,7 @@ function homeController(eventService, uiCalendarConfig) {
     this.user = {};
     this.events = [];
     this.selectedEvent = {};
+    this.selectedCalEvent = {};
     this.showEditingEventForm = false;
     this.eventSource = {};
     this.typeEvents = [];
@@ -46,6 +47,7 @@ function homeController(eventService, uiCalendarConfig) {
     this.nextMonth = nextMonth;
     this.prevMonth = prevMonth;
     this.addNewEvent = addNewEvent;
+    this.updateEvent = updateEvent;
     this.deleteEvent = deleteEvent;
 
     // Contrairement à la page de login, le require n'est pas resolved tout de suite.
@@ -82,7 +84,10 @@ function homeController(eventService, uiCalendarConfig) {
     }
     
     function eventClick(calEvent, jsEvent, view) {
-        vm.selectedEvent = calEvent;
+        vm.selectedCalEvent = calEvent;
+        vm.selectedEvent.id = calEvent.eventid;
+        vm.selectedEvent.title = calEvent.title;
+        vm.selectedEvent.selectedType = {id: calEvent.typeid, type_code: calEvent.className[0]};
         vm.showEditingEventForm = true;
     }
     function eventResize(event, delta, revertFunc) {
@@ -103,10 +108,22 @@ function homeController(eventService, uiCalendarConfig) {
         if(endDate != null)
             console.log(moment(endDate, 'YYYY-MM-DD').subtract(1, 's').toString());
     }
-    function deleteEvent() {
-        eventService.supprimerEvent(vm.selectedEvent.eventid).then(function() {
+    function updateEvent() {
+        eventService.updateEvent(vm.selectedEvent).then(function() {
+            vm.selectedCalEvent.title = vm.selectedEvent.title; 
+            vm.selectedCalEvent.className[0] = vm.selectedEvent.selectedType.type_code;
+            uiCalendarConfig.calendars['absences'].fullCalendar('updateEvent', vm.selectedCalEvent);
             vm.showEditingEventForm = false;
             vm.selectedEvent = {};
+            vm.selectedCalEvent = {};
+        });
+    }
+    function deleteEvent() {
+        eventService.supprimerEvent(vm.selectedEvent.id).then(function() {
+            uiCalendarConfig.calendars['absences'].fullCalendar('removeEvents', vm.selectedCalEvent._id);
+            vm.showEditingEventForm = false;
+            vm.selectedEvent = {};
+            vm.selectedCalEvent = {};
         });
     }
 
@@ -124,7 +141,8 @@ function homeController(eventService, uiCalendarConfig) {
             // uiCalendarConfig.calendars['absences'].fullCalendar('refetchEventSources', vm.eventSource);
             // uiCalendarConfig.calendars['absences'].fullCalendar('rerenderEvents');
         });
-    };
+    }
+
 }
 
 angular

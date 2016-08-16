@@ -24,10 +24,13 @@ X suppression event
 -------------------
 
 edit event
-    (title, type)
-    trouver le moyen d'enregistrer quand on drag frop ou resize un event. (sauver à chaque fois automatiquement?)
+    V (title, type:select) ===> circular error sur objet event
+    V mettre a jour le calendrier sur delete et update
+    trouver le moyen d'enregistrer quand on drag drop ou resize un event. (sauver à chaque fois automatiquement?)
 
 faire un formulaire d'ajout d'absence plus joli
+
+BUG: new event puis clic, le type n'est pas affiché
 
 -------------------
 ajouter du jsdoc

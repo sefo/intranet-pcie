@@ -26,6 +26,15 @@ function eventService($http) {
                 return response;
             });
     }
+    this.updateEvent = function(event) {
+        return $http.post('/api/absences/update', event).then(
+            function(response) {
+                return response.data;
+            },
+            function(response) {
+                return response;
+            });
+    }
     this.supprimerEvent = function(eventId) {
         return $http.get('/api/absences/supprimer/' + eventId).then(
             function(response) {

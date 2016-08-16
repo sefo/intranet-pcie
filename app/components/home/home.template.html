@@ -16,7 +16,9 @@
         </div>
         <div ng-if="$ctrl.showEditingEventForm" class="col-sm-6">
             <input type="text" ng-model="$ctrl.selectedEvent.title" placeholder="Titre">
-            <button ng-click="">Mettre à jour</button>
+            <select ng-model="$ctrl.selectedEvent.selectedType" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
+            </select>
+            <button ng-click="$ctrl.updateEvent();">Mettre à jour</button>
             <button ng-click="$ctrl.showEditingEventForm = false;">Annuler</button>
             <button ng-click="$ctrl.deleteEvent();">Supprimer</button>
         </div>
