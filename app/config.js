@@ -41,6 +41,20 @@ function config($stateProvider, $urlRouterProvider, $windowProvider, $compilePro
     {
         url : '/creation',
         templateUrl : 'views/admin/creation.html'
+    })
+    .state('rh',
+    {
+        url : '/rh',
+        template: '<ui-view/>',
+        abstract: true,
+        resolve: {
+            authenticate: authenticateRH
+        }
+    })    
+    .state('rh.absences',
+    {
+        url : '/absences',
+        templateUrl : 'views/rh/absences.html'
     });
 }
 
@@ -60,6 +74,19 @@ function authenticateAdmin($timeout, $q, $location, loginService) {
             $timeout(function() { $location.path('/login'); });
             return $q.reject();
         } else if(data.role == 'admin') {
+            return $q.when();
+        } else {
+            $timeout(function() { $location.path('/home'); });
+            return $q.reject();
+        }
+    });
+}
+function authenticateRH($timeout, $q, $location, loginService) {
+    loginService.profile().then(function(data) {
+        if(data.status == 401) {
+            $timeout(function() { $location.path('/login'); });
+            return $q.reject();
+        } else if(data.role == 'RH') {
             return $q.when();
         } else {
             $timeout(function() { $location.path('/home'); });

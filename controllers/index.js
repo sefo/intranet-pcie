@@ -4,6 +4,7 @@ var router = express.Router();
 router.use('/api/roles', require('./roles'));
 router.use('/api/absences', require('./absences'));
 router.use('/api/admin', require('./admin'));
+router.use('/api/rh', require('./rh'));
 router.use('/me', require('./profile'));
 router.use('/auth', require('./auth'));
 

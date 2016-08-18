@@ -1,0 +1,14 @@
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <table ng-table="$ctrl.tableParams" class="table">
+                <tr ng-repeat="absence in $data">
+                    <td>{{ absence.prenom }} {{ absence.nom }}</td>
+                    <td>Du {{ absence.start }} au {{ absence.end }}</td>
+                    <td>{{ absence.type }}</td>
+                    <td>{{ absence.validation }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
