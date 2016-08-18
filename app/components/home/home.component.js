@@ -75,11 +75,13 @@ function homeController(eventService, uiCalendarConfig) {
         var tempEventSource = {events: [{
             title: vm.newEvent.title,
             start: vm.newEvent.start,
-            className: vm.newEvent.type.type_code
+            className: vm.newEvent.type.type_code,
+            typeid: vm.newEvent.type.id,
+            eventid: null
         }]};
-        uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', tempEventSource);
-        eventService.enregistrerEvent(vm.newEvent).then(function(data) {
-            console.log(data); //data.name = 'error' //data.detail
+        eventService.enregistrerEvent(vm.newEvent).then(function(event) {
+            tempEventSource.events[0].eventid = event.id;
+            uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', tempEventSource);
         });
     }
     
@@ -122,8 +124,9 @@ function homeController(eventService, uiCalendarConfig) {
     }
     function updateEvent() {
         eventService.updateEvent(vm.selectedEvent).then(function() {
-            vm.selectedCalEvent.title = vm.selectedEvent.title; 
+            vm.selectedCalEvent.title = vm.selectedEvent.title;
             vm.selectedCalEvent.className[0] = vm.selectedEvent.selectedType.type_code;
+            vm.selectedCalEvent.typeid = vm.selectedEvent.selectedType.id;
             uiCalendarConfig.calendars['absences'].fullCalendar('updateEvent', vm.selectedCalEvent);
             vm.showEditingEventForm = false;
             vm.selectedEvent = {};

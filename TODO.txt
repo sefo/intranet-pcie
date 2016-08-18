@@ -30,11 +30,11 @@ X faire un bouton valider qui envoit les event dans une table pour la RH
     X ajouter role RH et utilisateur avec route sécurisée vers une page qui liste les demandes d'absences
     X lister toutes les absences de l'année dans un tableau
     X filtrer les absences et n'afficher que celles A valider (ng-table)
+X BUG: new event puis clic, le type n'est pas affiché + edit eventType puis clic, type pas a jour
 -------------------
 
 systeme de validation des absences depuis tableau RH
 affichage de la validation dans home
-BUG: new event puis clic, le type n'est pas affiché + edit event type puis clic, pas a jour
 
 -------------------
 ajouter du jsdoc

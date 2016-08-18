@@ -40,9 +40,9 @@ router.post('/enregistrer', function (req, res) {
   parameters.title = req.body.title;
   parameters.start = req.body.start;
   parameters.type = req.body.type.id;
-  db.none("insert into absence(type, validation, debut, fin, utilisateur, titre) values(${type}, 5, ${start}, ${start}, ${userId}, ${title})", parameters)
+  db.one("insert into absence(type, validation, debut, fin, utilisateur, titre) values(${type}, 5, ${start}, ${start}, ${userId}, ${title}) returning id", parameters)
     .then(function (data) {
-        res.send('ok');
+        res.json({id: data.id});
     })
     .catch(function (error) {
       res.send(error);
