@@ -15,6 +15,10 @@ section .formulaire {
     -moz-box-shadow: 3px 3px 5px 6px #EEE;
     box-shadow: 3px 3px 5px 6px #EEE;
 }
+.formulaire.small-formulaire {
+    min-width: 250px;
+    max-width: 250px;
+}
 .formulaire .row .glyphicon {
     position: absolute;
     top: 20px;

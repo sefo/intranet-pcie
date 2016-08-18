@@ -21,23 +21,20 @@ X suppression event
     X ajouter une evènement click sur event
     X créer un formulaire d'édition d'absence
     XV la requête delete ne marche pas...
+X edit event
+    X (title, type:select) ===> circular error sur objet event
+    X mettre a jour le calendrier sur delete et update
+    X trouver le moyen d'enregistrer quand on drag drop ou resize un event. (sauver à chaque fois automatiquement?)
+X faire des formulaires (add et new event) plus jolis
 -------------------
 
-edit event
-    V (title, type:select) ===> circular error sur objet event
-    V mettre a jour le calendrier sur delete et update
-    V trouver le moyen d'enregistrer quand on drag drop ou resize un event. (sauver à chaque fois automatiquement?)
-    ajouter des growl d'information
-
-faire un formulaire d'ajout d'absence et edition plus joli
-
+faire un bouton valider qui envoit les event dans une table pour la RH
+    faire interface RH
 BUG: new event puis clic, le type n'est pas affiché
 
 -------------------
 ajouter du jsdoc
 ! quand l'année change, faire une nouvelle requête
-faire un bouton valider qui envoit les event dans une table pour la RH
-    faire interface RH
 (liste des demandes d'absence avec filtre par nom, date, type, validé en attente ou refusé)
 voir comment fonctionnent les notifications de slack
 voir comment envoyer des mails de puis node

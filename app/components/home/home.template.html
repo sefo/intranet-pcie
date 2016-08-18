@@ -6,21 +6,29 @@
             <div calendar="absences" ui-calendar="$ctrl.config.calendar" ng-model="$ctrl.eventSource"></div>
         </div>
         <div ng-if="$ctrl.newEvent.showEventForm" class="col-sm-6">
-            Absence le: {{ $ctrl.newEvent.start }}
-            <input type="text" ng-model="$ctrl.newEvent.title" placeholder="Titre">
-            <select ng-model="$ctrl.newEvent.type" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
-                <option value="">Type</option>
-            </select>
-            <button ng-click="$ctrl.addNewEvent();">Enregistrer</button>
-            <button ng-click="$ctrl.newEvent.showEventForm = false;">Annuler</button>
+            <div class="formulaire small-formulaire col-sm-3">
+                <form role="formulaire">
+                    <h3>Absence du<br>{{ $ctrl.newEvent.start }}</h3>
+                    <input type="text" ng-model="$ctrl.newEvent.title" placeholder="Titre" class="form-control">
+                    <select ng-model="$ctrl.newEvent.type" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
+                        <option value="">Type</option>
+                    </select>
+                    <button ng-click="$ctrl.addNewEvent();" class="btn btn-primary">Enregistrer</button>
+                    <button ng-click="$ctrl.newEvent.showEventForm = false;" class="btn btn-danger">Annuler</button>
+                </form>
+            </div>
         </div>
         <div ng-if="$ctrl.showEditingEventForm" class="col-sm-6">
-            <input type="text" ng-model="$ctrl.selectedEvent.title" placeholder="Titre">
-            <select ng-model="$ctrl.selectedEvent.selectedType" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
-            </select>
-            <button ng-click="$ctrl.updateEvent();">Mettre à jour</button>
-            <button ng-click="$ctrl.showEditingEventForm = false;">Annuler</button>
-            <button ng-click="$ctrl.deleteEvent();">Supprimer</button>
+            <div class="formulaire small-formulaire col-sm-3">
+                <form role="formulaire">
+                    <input type="text" ng-model="$ctrl.selectedEvent.title" placeholder="Titre" class="form-control">
+                    <select ng-model="$ctrl.selectedEvent.selectedType" ng-options="option.type_code for option in $ctrl.typeEvents track by option.id" name="type" required="required" class="form-control">
+                    </select>
+                    <button ng-click="$ctrl.updateEvent();" class="btn btn-primary">Mettre à jour</button>
+                    <button ng-click="$ctrl.showEditingEventForm = false;" class="btn btn-warning">Annuler</button>
+                    <button ng-click="$ctrl.deleteEvent();" class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
         </div>
     </div>
 </section>
