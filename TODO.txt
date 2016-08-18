@@ -26,12 +26,14 @@ X edit event
     X mettre a jour le calendrier sur delete et update
     X trouver le moyen d'enregistrer quand on drag drop ou resize un event. (sauver à chaque fois automatiquement?)
 X faire des formulaires (add et new event) plus jolis
--------------------
-
-faire un bouton valider qui envoit les event dans une table pour la RH
+X faire un bouton valider qui envoit les event dans une table pour la RH
     X ajouter role RH et utilisateur avec route sécurisée vers une page qui liste les demandes d'absences
     X lister toutes les absences de l'année dans un tableau
-    filtrer les absences et n'afficher que celles A valider (ng-table)
+    X filtrer les absences et n'afficher que celles A valider (ng-table)
+-------------------
+
+systeme de validation des absences depuis tableau RH
+affichage de la validation dans home
 BUG: new event puis clic, le type n'est pas affiché + edit event type puis clic, pas a jour
 
 -------------------

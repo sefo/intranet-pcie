@@ -1,12 +1,14 @@
 <section class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <table ng-table="$ctrl.tableParams" class="table">
+            <table ng-table="$ctrl.tableParams" class="table table-condensed table-hover table-striped">
                 <tr ng-repeat="absence in $data">
-                    <td>{{ absence.prenom }} {{ absence.nom }}</td>
-                    <td>Du {{ absence.start }} au {{ absence.end }}</td>
-                    <td>{{ absence.type }}</td>
-                    <td>{{ absence.validation }}</td>
+                    <td data-title="'Nom'" filter="{nom: 'text'}">{{ absence.nom }}</td>
+                    <td data-title="'Prénom'" filter="{prenom: 'text'}">{{ absence.prenom }}</td>
+                    <td data-title="'Début'" filter="{start: 'text'}">{{ absence.start }}</td>
+                    <td data-title="'Fin'" filter="{end: 'text'}">{{ absence.end }}</td>
+                    <td data-title="'Type'" filter="{type: 'text'}">{{ absence.type }}</td>
+                    <td data-title="'Validation'" filter="{validation: 'text'}">{{ absence.validation }}</td>
                 </tr>
             </table>
         </div>
