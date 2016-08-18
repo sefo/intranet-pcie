@@ -26,9 +26,10 @@ X suppression event
 edit event
     V (title, type:select) ===> circular error sur objet event
     V mettre a jour le calendrier sur delete et update
-    trouver le moyen d'enregistrer quand on drag drop ou resize un event. (sauver à chaque fois automatiquement?)
+    V trouver le moyen d'enregistrer quand on drag drop ou resize un event. (sauver à chaque fois automatiquement?)
+    ajouter des growl d'information
 
-faire un formulaire d'ajout d'absence plus joli
+faire un formulaire d'ajout d'absence et edition plus joli
 
 BUG: new event puis clic, le type n'est pas affiché
 

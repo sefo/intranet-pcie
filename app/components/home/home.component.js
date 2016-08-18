@@ -84,29 +84,41 @@ function homeController(eventService, uiCalendarConfig) {
     }
     
     function eventClick(calEvent, jsEvent, view) {
+        var startDate = calEvent.start.format('YYYY-MM-DD');
+        var endDate = calEvent.end == null ? startDate : calEvent.end.format('YYYY-MM-DD');
         vm.selectedCalEvent = calEvent;
         vm.selectedEvent.id = calEvent.eventid;
         vm.selectedEvent.title = calEvent.title;
         vm.selectedEvent.selectedType = {id: calEvent.typeid, type_code: calEvent.className[0]};
+        vm.selectedEvent.start = startDate;
+        vm.selectedEvent.end = endDate;
         vm.showEditingEventForm = true;
     }
     function eventResize(event, delta, revertFunc) {
-        var endDate = event.end.format().toString();
-        var startDate = event.start.format().toString();
-        var result = moment(endDate, 'YYYY-MM-DD').subtract(1, 's').toString();
-        console.log(startDate);
-        console.log(result);
+        var startDate = event.start.format('YYYY-MM-DD');
+        var endDate = event.end == null ? startDate : event.end.format('YYYY-MM-DD');
+        vm.selectedCalEvent = event;
+        vm.selectedEvent.id = event.eventid;
+        vm.selectedEvent.title = event.title;
+        vm.selectedEvent.selectedType = {id: event.typeid, type_code: event.className[0]};
+        vm.selectedEvent.start = startDate;
+        vm.selectedEvent.end = endDate;
+        updateEvent();
     }
     function dayClick(date, jsEvent, view) {
         vm.newEvent.showEventForm = true;
         vm.newEvent.start = date.format().toString();
     }
     function eventDrop(event, delta, revertFunc) {
-        var endDate = event.end == null ? null : event.end.format().toString();
-        var startDate = event.start.format().toString();
-        console.log(moment(startDate, 'YYYY-MM-DD').toString());
-        if(endDate != null)
-            console.log(moment(endDate, 'YYYY-MM-DD').subtract(1, 's').toString());
+        var startDate = event.start.format('YYYY-MM-DD');
+        var endDate = event.end == null ? startDate : event.end.format('YYYY-MM-DD');
+        vm.selectedCalEvent = event;
+        vm.selectedEvent.id = event.eventid;
+        vm.selectedEvent.title = event.title;
+        vm.selectedEvent.selectedType = {id: event.typeid, type_code: event.className[0]};
+        vm.selectedEvent.start = startDate;
+        vm.selectedEvent.end = endDate;
+        updateEvent();
     }
     function updateEvent() {
         eventService.updateEvent(vm.selectedEvent).then(function() {
