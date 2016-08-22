@@ -31,7 +31,41 @@ router.get('/absences/:y', guard.check('RH'), function (req, res) {
 	db.any(requete, parameters).then(function (data) {
     res.json({data});
   }).catch(function (error) {
-	  response.send(error);
+	  res.send(error);
+  });
+});
+
+router.post('/absences/valider/', guard.check('RH'), function (req, res) {
+  var parameters = {};
+  parameters.userid = req.body.userid;
+  parameters.eventid = req.body.eventid;
+  var requete = "with update_event as ( \
+      update absence set validation = 2 \
+      where id = ${eventid} and utilisateur = ${userid} \
+      returning *) \
+      select a.validation, av.type from update_event as a \
+      inner join absence_validation as av on av.id = a.validation;";
+	db.any(requete, parameters).then(function (data) {
+    res.json({data});
+  }).catch(function (error) {
+	  res.send(error);
+  });
+});
+
+router.post('/absences/refuser/', guard.check('RH'), function (req, res) {
+  var parameters = {};
+  parameters.userid = req.body.userid;
+  parameters.eventid = req.body.eventid;
+  var requete = "with update_event as ( \
+      update absence set validation = 1 \
+      where id = ${eventid} and utilisateur = ${userid} \
+      returning *) \
+      select a.validation, av.type from update_event as a \
+      inner join absence_validation as av on av.id = a.validation;";
+	db.any(requete, parameters).then(function (data) {
+    res.json({data});
+  }).catch(function (error) {
+	  res.send(error);
   });
 });
 

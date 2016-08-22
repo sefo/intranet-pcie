@@ -37,6 +37,14 @@ form[role=formulaire] input, form[role=formulaire] button {
 form .ng-invalid.ng-touched {
     border: 1px solid red;
 }
+.validation-btns {
+    float: right;
+    visibility: hidden;
+}
+
+tr:hover .validation-btns {
+    visibility: visible;
+}
 
 /* HOME */
 .RTT > div {

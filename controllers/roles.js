@@ -14,7 +14,7 @@ router.get('/lister', function (req, res) {
 	db.any("select r.id, r.intitule from role r").then(function (data) {
     res.json({data});
   }).catch(function (error) {
-	  response.send(error);
+	  res.send(error);
   });
 });
 

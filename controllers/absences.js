@@ -22,7 +22,7 @@ router.get('/:y', function(req, res) {
 	db.any(requete, parameters).then(function (data) {
     res.json({data});
   }).catch(function (error) {
-	  response.send(error);
+	  res.send(error);
   });
 });
 
@@ -30,7 +30,7 @@ router.get('/types/lister', function (req, res) {
 	db.any("select t.id, t.type, t.type_code from absence_type t").then(function (data) {
     res.json({data});
   }).catch(function (error) {
-	  response.send(error);
+	  res.send(error);
   });
 });
 

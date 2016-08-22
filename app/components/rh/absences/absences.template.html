@@ -8,7 +8,12 @@
                     <td data-title="'Début'" filter="{start: 'text'}">{{ absence.start }}</td>
                     <td data-title="'Fin'" filter="{end: 'text'}">{{ absence.end }}</td>
                     <td data-title="'Type'" filter="{type: 'text'}">{{ absence.type }}</td>
-                    <td data-title="'Validation'" filter="{validation: 'text'}">{{ absence.validation }}</td>
+                    <td data-title="'Validation'" filter="{validation: 'text'}">{{ absence.validation }}
+                        <span class="validation-btns">
+                            <button type="button" ng-click="$ctrl.valider(absence);" class="glyphicon glyphicon-ok-circle btn-success"></button>
+                            <button type="button" ng-click="$ctrl.refuser(absence);" class="glyphicon glyphicon-remove-circle btn-danger"></button>
+                        </span>
+                    </td>
                 </tr>
             </table>
         </div>

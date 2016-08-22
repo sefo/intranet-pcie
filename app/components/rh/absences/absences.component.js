@@ -6,6 +6,8 @@ var absences = {
 
 function absencesController(rhService, NgTableParams) {
     var vm = this;
+    this.valider = valider;
+    this.refuser = refuser;
     this.absences = [];
     var y = moment().format('YYYY');
 
@@ -13,7 +15,20 @@ function absencesController(rhService, NgTableParams) {
         rhService.getEvents(y).then(function(events) {
             vm.absences = events.data;
             initTable();
-            console.log(events.data);
+        });
+    }
+
+    function valider(event) {
+        rhService.validerAbsence(event).then(function(resultat) {
+            updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
+            vm.tableParams.reload();
+        });
+    }
+
+    function refuser(event) {
+        rhService.refuserAbsence(event).then(function(resultat) {
+            updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
+            vm.tableParams.reload();
         });
     }
 
@@ -25,6 +40,15 @@ function absencesController(rhService, NgTableParams) {
             total: vm.absences.length,
             dataset: vm.absences
         });
+    }
+
+    function updateValidationValue(eventid, validation, validationid) {
+        vm.absences.forEach(function(event, index) {
+            if(event.eventid == eventid) {
+                event.validationid = validationid;
+                event.validation = validation;
+            }
+        })
     }
 };
 

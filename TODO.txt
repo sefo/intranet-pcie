@@ -31,15 +31,17 @@ X faire un bouton valider qui envoit les event dans une table pour la RH
     X lister toutes les absences de l'année dans un tableau
     X filtrer les absences et n'afficher que celles A valider (ng-table)
 X BUG: new event puis clic, le type n'est pas affiché + edit eventType puis clic, type pas a jour
+X systeme de validation des absences depuis tableau RH
+    X boutons
+    X api avec changement d'état
 -------------------
 
-systeme de validation des absences depuis tableau RH
-affichage de la validation dans home
+affichage de l'état de validation des absences dans home
+système de notifications par email et sur site si connecté
 
 -------------------
 ajouter du jsdoc
 ! quand l'année change, faire une nouvelle requête
-(liste des demandes d'absence avec filtre par nom, date, type, validé en attente ou refusé)
 voir comment fonctionnent les notifications de slack
 voir comment envoyer des mails de puis node
 voir comment accéder au site depuis un autre pc que localhost
