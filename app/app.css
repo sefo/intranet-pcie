@@ -47,6 +47,16 @@ tr:hover .validation-btns {
 }
 
 /* HOME */
+/* icones de validation absences */
+
+.validation-icon {
+    margin-right: 10px;
+    margin-left: 5px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+}
+
 .RTT > div {
     background-color: yellow;
     color: black;

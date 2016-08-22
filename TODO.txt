@@ -34,9 +34,9 @@ X BUG: new event puis clic, le type n'est pas affiché + edit eventType puis cli
 X systeme de validation des absences depuis tableau RH
     X boutons
     X api avec changement d'état
+affichage de l'état de validation des absences dans home
 -------------------
 
-affichage de l'état de validation des absences dans home
 système de notifications par email et sur site si connecté
 
 -------------------

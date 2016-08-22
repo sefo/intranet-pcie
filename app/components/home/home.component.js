@@ -38,6 +38,7 @@ function homeController(eventService, uiCalendarConfig) {
                 center: 'title',
                 right: ''
             },
+            eventRender: eventRender,
             eventClick: eventClick,
             eventResize: eventResize,
             dayClick: dayClick,
@@ -106,6 +107,14 @@ function homeController(eventService, uiCalendarConfig) {
         vm.selectedEvent.start = startDate;
         vm.selectedEvent.end = endDate;
         updateEvent();
+    }
+    function eventRender(event, element) {
+        if(event.validation == 2)
+            element.find(".fc-title").prepend("<i class='validation-icon glyphicon glyphicon-ok-circle btn-success' title='Validé'></i>");
+        else if(event.validation == 1)
+            element.find(".fc-title").prepend("<i class='validation-icon glyphicon glyphicon-remove-circle btn-danger' title='Refusé'></i>");
+        else
+            element.find(".fc-title").prepend("<i class='validation-icon glyphicon glyphicon-bell btn-warning' title='A valider'></i>");
     }
     function dayClick(date, jsEvent, view) {
         vm.newEvent.showEventForm = true;
