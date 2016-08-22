@@ -11,7 +11,7 @@ var home = {
     templateUrl: 'components/home/home.template.html'
 };
 
-function homeController(eventService, uiCalendarConfig) {
+function homeController(eventService, uiCalendarConfig, socketService, $scope) {
     var vm = this;
     var m = moment().format('M');
     var y = moment().format('YYYY');
@@ -55,6 +55,10 @@ function homeController(eventService, uiCalendarConfig) {
     // (dans login, le controller required est appellé dans une promise) donc a le temps d'être bindé
     // onInit permet d'attendre que tous les controllers et bindings soient loadés
     this.$onInit = function() {
+        // test live notification
+        $scope.$on('socket:broadcast', function(event, data) {
+            console.log("reçu live event");
+        });
         // user infos depuis le components parent
         vm.user = vm.intranet.getUser();
         // liste d'events
@@ -66,6 +70,7 @@ function homeController(eventService, uiCalendarConfig) {
     }
 
     function nextMonth() {
+        socketService.emit('message', 'boooo', 'un message');
         uiCalendarConfig.calendars['absences'].fullCalendar('next');
     }
     function prevMonth() {

@@ -37,6 +37,8 @@ X systeme de validation des absences depuis tableau RH
 affichage de l'état de validation des absences dans home
 -------------------
 
+controle: si une absence est validée, tous les update (type, resize, drop) doivent remettre la validation a 5
+    suppr doit envoyer une notification au RH
 système de notifications par email et sur site si connecté
 
 -------------------
