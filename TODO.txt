@@ -45,9 +45,13 @@ système de notifications par email et sur site si connecté
     X tester socket.io
     X envoyer des notifications sur les evènements: resize, drop, suppr, validation, refus
     X faire une api pour recuperer le mail de la rh
-    installer growl
-    notifier rh par growl (fermer sur clic, pas de timeout)
-    pareil poour les evenements RH (accepté, refusé)
+    X installer growl (https://github.com/alexcrack/angular-ui-notification)
+    X notifier rh par growl (fermer sur clic, pas de timeout)
+    pareil pour les evenements RH (accepté, refusé)
+    recharger le tableau rh quand recoit une notif de modification
+    recharger le calendrier quand rh valide ou refuse
+
+BUG: click sur hom (intranet) affiche le login rapidement
 
 -------------------
 ajouter du jsdoc

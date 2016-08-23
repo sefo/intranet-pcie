@@ -4,18 +4,18 @@ var intranet = {
     templateUrl: 'components/intranet/intranet.template.html'
 };
 
-function intranetController(loginService, $rootScope) {
+function intranetController(loginService, $rootScope, Notification) {
 
     var vm = this;
     this.loggedUser = {};
 
     // écoute les évènements serveur
     $rootScope.$on('socket:notification', function(event, data) {
-        console.log("reçu live event");
-        console.log(data.message);
-        console.log(data.source);
-        console.log(data.destination);
-        console.log(data.event);
+        Notification({message: 'De: ' + data.source + ' : ' + data.message, delay: 'infinite'});
+        // console.log(data.message);
+        // console.log(data.source);
+        // console.log(data.destination);
+        // console.log(data.event);
     });
 
     // Permet de garder l'utilisateur à jour quand la page est refreshed

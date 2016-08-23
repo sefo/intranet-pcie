@@ -22,6 +22,7 @@
     "ng-table": "^1.0.0",
     "angular-socket-io": "^0.7.0",
     "socket.io": "^1.4.8",
-    "socket.io-client": "^1.4.8"
+    "socket.io-client": "^1.4.8",
+    "angular-ui-notification": "^0.2.0"
   }
 }
