@@ -7,7 +7,7 @@ var login = {
     templateUrl: 'components/login/login.template.html'
 };
 
-function loginController($window, $state, loginService) {
+function loginController($window, $state, loginService, socketService) {
     var vm = this;
     // model du formulaire de login
     this.user = {};
@@ -15,6 +15,8 @@ function loginController($window, $state, loginService) {
     this.login = function(user) {
         loginService.login(user).then(function(data) {
             if(data.user) {
+                //envoi notification au serveur et crée une room pour recevoir les events
+                socketService.emit('join', {email: data.user.email});
                 $window.sessionStorage.token = data.user.token;
                 vm.intranet.updateUser(data.user);
                 $state.go('home');

@@ -57,7 +57,7 @@ router.post('/update', function (req, res) {
   parameters.typeid = parseInt(req.body.selectedType.id, 10);
   parameters.start = req.body.start;
   parameters.end = req.body.end;
-  db.none("update absence set type = ${typeid}, titre = ${titre}, debut = ${start}, fin = ${end} where id = ${eventid} and utilisateur = ${userid}", parameters)
+  db.none("update absence set type = ${typeid}, titre = ${titre}, debut = ${start}, fin = ${end}, validation = 5 where id = ${eventid} and utilisateur = ${userid}", parameters)
     .then(function (data) {
 	    res.send('ok');
     })

@@ -4,10 +4,19 @@ var intranet = {
     templateUrl: 'components/intranet/intranet.template.html'
 };
 
-function intranetController(loginService) {
+function intranetController(loginService, $rootScope) {
 
     var vm = this;
     this.loggedUser = {};
+
+    // écoute les évènements serveur
+    $rootScope.$on('socket:notification', function(event, data) {
+        console.log("reçu live event");
+        console.log(data.message);
+        console.log(data.source);
+        console.log(data.destination);
+        console.log(data.event);
+    });
 
     // Permet de garder l'utilisateur à jour quand la page est refreshed
     loginService.profile().then(function(data) {

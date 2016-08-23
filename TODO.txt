@@ -37,15 +37,21 @@ X systeme de validation des absences depuis tableau RH
 affichage de l'état de validation des absences dans home
 -------------------
 
-controle: si une absence est validée, tous les update (type, resize, drop) doivent remettre la validation a 5
-    suppr doit envoyer une notification au RH
+X controle: si une absence est validée, tous les update (type, resize, drop) doivent remettre la validation a 5
+    suppression absence: voir avec eva quoi faire (empêcher suppr si validation ok?, marqué comme supprimé mais ne pas supprimer?)
+    
 système de notifications par email et sur site si connecté
+    voir comment envoyer des mails de puis node
+    X tester socket.io
+    X envoyer des notifications sur les evènements: resize, drop, suppr, validation, refus
+    X faire une api pour recuperer le mail de la rh
+    installer growl
+    notifier rh par growl (fermer sur clic, pas de timeout)
+    pareil poour les evenements RH (accepté, refusé)
 
 -------------------
 ajouter du jsdoc
 ! quand l'année change, faire une nouvelle requête
-voir comment fonctionnent les notifications de slack
-voir comment envoyer des mails de puis node
 voir comment accéder au site depuis un autre pc que localhost
 VALIDATION! serveur et ihm (object complet, email n'existe pas déjà)
 Ajouter des growl d'erreur et confirmation

@@ -11,12 +11,13 @@ var home = {
     templateUrl: 'components/home/home.template.html'
 };
 
-function homeController(eventService, uiCalendarConfig, socketService, $scope) {
+function homeController(eventService, uiCalendarConfig, socketService, rhService) {
     var vm = this;
     var m = moment().format('M');
     var y = moment().format('YYYY');
 
     this.user = {};
+    this.myRH = {};
     this.events = [];
     this.selectedEvent = {};
     this.selectedCalEvent = {};
@@ -55,9 +56,9 @@ function homeController(eventService, uiCalendarConfig, socketService, $scope) {
     // (dans login, le controller required est appellé dans une promise) donc a le temps d'être bindé
     // onInit permet d'attendre que tous les controllers et bindings soient loadés
     this.$onInit = function() {
-        // test live notification
-        $scope.$on('socket:broadcast', function(event, data) {
-            console.log("reçu live event");
+        // infos RH (pour l'instant besoin que du mail pour les notifications')
+        rhService.getRH().then(function(result) {
+            vm.myRH = result.data[0];
         });
         // user infos depuis le components parent
         vm.user = vm.intranet.getUser();
@@ -70,7 +71,6 @@ function homeController(eventService, uiCalendarConfig, socketService, $scope) {
     }
 
     function nextMonth() {
-        socketService.emit('message', 'boooo', 'un message');
         uiCalendarConfig.calendars['absences'].fullCalendar('next');
     }
     function prevMonth() {
@@ -112,6 +112,8 @@ function homeController(eventService, uiCalendarConfig, socketService, $scope) {
         vm.selectedEvent.start = startDate;
         vm.selectedEvent.end = endDate;
         updateEvent();
+        // publie l'évènement vers le serveur pour informer les RH
+        socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
     }
     function eventRender(event, element) {
         if(event.validation == 2)
@@ -135,12 +137,15 @@ function homeController(eventService, uiCalendarConfig, socketService, $scope) {
         vm.selectedEvent.start = startDate;
         vm.selectedEvent.end = endDate;
         updateEvent();
+        // publie l'évènement vers le serveur pour informer les RH
+        socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
     }
     function updateEvent() {
         eventService.updateEvent(vm.selectedEvent).then(function() {
             vm.selectedCalEvent.title = vm.selectedEvent.title;
             vm.selectedCalEvent.className[0] = vm.selectedEvent.selectedType.type_code;
             vm.selectedCalEvent.typeid = vm.selectedEvent.selectedType.id;
+            vm.selectedCalEvent.validation = 5;
             uiCalendarConfig.calendars['absences'].fullCalendar('updateEvent', vm.selectedCalEvent);
             vm.showEditingEventForm = false;
             vm.selectedEvent = {};
@@ -151,6 +156,8 @@ function homeController(eventService, uiCalendarConfig, socketService, $scope) {
         eventService.supprimerEvent(vm.selectedEvent.id).then(function() {
             uiCalendarConfig.calendars['absences'].fullCalendar('removeEvents', vm.selectedCalEvent._id);
             vm.showEditingEventForm = false;
+            // publie l'évènement vers le serveur pour informer les RH
+            socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
             vm.selectedEvent = {};
             vm.selectedCalEvent = {};
         });

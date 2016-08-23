@@ -16,6 +16,19 @@ var db = pgp({
     password: 'root'
 });
 
+// renvoie le profile du RH
+router.get('/profile', function (req, res) {
+  var requete = "select u.email \
+        from utilisateur as u \
+        inner join role as r on r.id = u.role \
+        where r.intitule = 'RH'";
+	db.any(requete).then(function (data) {
+    res.json({data});
+  }).catch(function (error) {
+	  res.send(error);
+  });
+});
+
 router.get('/absences/:y', guard.check('RH'), function (req, res) {
   var parameters = {};
   parameters.y = req.params.y;

@@ -1,4 +1,13 @@
 function rhService($http) {
+    this.getRH = function() {
+        return $http.get('/api/rh/profile').then(
+            function(response) {
+                return response.data;
+            },
+            function(response) {
+                return response;
+            });
+    }
     this.getEvents = function(y) {
         return $http.get('/api/rh/absences/' + y).then(
             function(response) {

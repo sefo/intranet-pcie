@@ -1,6 +1,6 @@
 function socketService(socketFactory) {
     var socket = socketFactory();
-    socket.forward('broadcast');
+    socket.forward('notification');
     return socket;
 };
 

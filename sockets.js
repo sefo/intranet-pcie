@@ -1,15 +1,18 @@
 module.exports = function(io) {
+  //when a user connects to the server
   io.on('connection', function (socket) {
-    socket.on('message', function (from, msg) {
-
-      console.log('recieved message from', from, 'msg', JSON.stringify(msg));
-      console.log('broadcasting message');
-      console.log('payload is', msg);
-      io.sockets.emit('broadcast', {
-        payload: msg,
-        source: from
+    //he joins a private room (event emit depuis le client angular page de login)
+    socket.on('join', function(data) {
+      socket.join(data.email);
+    });
+    //and listens to messages (to = email personne concernée)
+    socket.on('modification_event', function (from, to, msg, data) {
+      io.sockets.in(to).emit('notification', {
+        message: msg,
+        source: from,
+        destination: to,
+        event: data
       });
-      console.log('broadcast complete');
     });
   });
 };
