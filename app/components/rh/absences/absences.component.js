@@ -1,10 +1,13 @@
 var absences = {
     bindings: {},
+    require: {
+        intranet: '^^intranet'
+    },
     controller: absencesController,
     templateUrl: 'components/rh/absences/absences.template.html'
 };
 
-function absencesController(rhService, NgTableParams) {
+function absencesController(rhService, NgTableParams, socketService) {
     var vm = this;
     this.valider = valider;
     this.refuser = refuser;
@@ -12,6 +15,9 @@ function absencesController(rhService, NgTableParams) {
     var y = moment().format('YYYY');
 
     this.$onInit = function() {
+        // user infos depuis le components parent
+        vm.user = vm.intranet.getUser();
+        // récupération des demandes d'absence'
         rhService.getEvents(y).then(function(events) {
             vm.absences = events.data;
             initTable();
@@ -19,7 +25,9 @@ function absencesController(rhService, NgTableParams) {
     }
 
     function valider(event) {
+        console.log(event);
         rhService.validerAbsence(event).then(function(resultat) {
+            socketService.emit('modification_event', vm.user.email, event.email, 'Absence validée', {eventid: event.eventid});
             updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
             vm.tableParams.reload();
         });
@@ -27,6 +35,7 @@ function absencesController(rhService, NgTableParams) {
 
     function refuser(event) {
         rhService.refuserAbsence(event).then(function(resultat) {
+            socketService.emit('modification_event', vm.user.email, event.email, 'Absence refusée', {eventid: event.eventid});
             updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
             vm.tableParams.reload();
         });

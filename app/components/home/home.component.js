@@ -86,6 +86,7 @@ function homeController(eventService, uiCalendarConfig, socketService, rhService
             eventid: null
         }]};
         eventService.enregistrerEvent(vm.newEvent).then(function(event) {
+            socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Nouvelle demande d\'absence', {eventid: event.eventid});
             tempEventSource.events[0].eventid = event.id;
             uiCalendarConfig.calendars['absences'].fullCalendar('addEventSource', tempEventSource);
         });

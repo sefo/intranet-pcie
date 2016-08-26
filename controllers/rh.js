@@ -32,7 +32,7 @@ router.get('/profile', function (req, res) {
 router.get('/absences/:y', guard.check('RH'), function (req, res) {
   var parameters = {};
   parameters.y = req.params.y;
-  var requete = "select u.id as userid, u.nom, u.prenom, \
+  var requete = "select u.id as userid, u.nom, u.prenom, u.email, \
         a.id as eventid, a.titre as title, to_char(a.debut, 'YYYY-MM-DD') as start, to_char(a.fin, 'YYYY-MM-DD') as end, \
         t.type_code as code, t.type, t.id as typeid, \
         v.id as validationid, v.type as validation \

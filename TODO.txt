@@ -34,32 +34,44 @@ X BUG: new event puis clic, le type n'est pas affiché + edit eventType puis cli
 X systeme de validation des absences depuis tableau RH
     X boutons
     X api avec changement d'état
-affichage de l'état de validation des absences dans home
--------------------
-
+X affichage de l'état de validation des absences dans home
 X controle: si une absence est validée, tous les update (type, resize, drop) doivent remettre la validation a 5
-    suppression absence: voir avec eva quoi faire (empêcher suppr si validation ok?, marqué comme supprimé mais ne pas supprimer?)
-    
-système de notifications par email et sur site si connecté
-    voir comment envoyer des mails de puis node
+X système de notifications sur site si connecté
     X tester socket.io
     X envoyer des notifications sur les evènements: resize, drop, suppr, validation, refus
     X faire une api pour recuperer le mail de la rh
     X installer growl (https://github.com/alexcrack/angular-ui-notification)
     X notifier rh par growl (fermer sur clic, pas de timeout)
-    pareil pour les evenements RH (accepté, refusé)
-    recharger le tableau rh quand recoit une notif de modification
-    recharger le calendrier quand rh valide ou refuse
+    X pareil pour les evenements RH (accepté, refusé)
+    X notification RH sur création absence
+-------------------
 
-BUG: click sur hom (intranet) affiche le login rapidement
+BUG: click sur home (intranet) affiche le login rapidement (remplacer le state par 'home')
+
+BUG: sur logout, supprimer le socket avec le mail:
+    se connecter avec eva, se deconnecter, se connecter avec sam, les notifications restent (sauf si la fenêtre est fermée)
+
+BUG: absence doit passer A valider si changement de type + RH doit être notifiée
+
+Historique des absences modifiées: Si user A modifie une absence, la RH doit pouvoir voir ce qui a été modifié
+
+Si une absence a été validée puis modifiée, sur refus de la RH est-ce qu'on remet l'ancienne absence valide?
+
+Faire un garde fou si fausse manip? Ex: je modifie une absence validée par erreur
 
 -------------------
+mettre une favicon dynamique (base64) au démarrage de l'appli et la changer sur notification
+ajouter un commentaire pour les demandes d'absences?
+système de notification par email (voir comment envoyer des mails depuis node) avec s'abonner se désabonner?
 ajouter du jsdoc
 ! quand l'année change, faire une nouvelle requête
 voir comment accéder au site depuis un autre pc que localhost
 VALIDATION! serveur et ihm (object complet, email n'existe pas déjà)
 Ajouter des growl d'erreur et confirmation
 CRUD utilisateur en entier, liste + edit + delete (mark as inactive)
+recharger le tableau rh quand recoit une notif de modification
+recharger le calendrier quand rh valide ou refuse
+    en stand by car notification dans intranetComponent
 -------------------
 echo "# intranet-pcie" >> README.md
 git init
