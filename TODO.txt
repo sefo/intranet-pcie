@@ -44,9 +44,8 @@ X système de notifications sur site si connecté
     X notifier rh par growl (fermer sur clic, pas de timeout)
     X pareil pour les evenements RH (accepté, refusé)
     X notification RH sur création absence
+X BUG: click sur home (intranet) affiche le login rapidement (remplacer le state par 'home')
 -------------------
-
-BUG: click sur home (intranet) affiche le login rapidement (remplacer le state par 'home')
 
 BUG: sur logout, supprimer le socket avec le mail:
     se connecter avec eva, se deconnecter, se connecter avec sam, les notifications restent (sauf si la fenêtre est fermée)
