@@ -113,8 +113,6 @@ function homeController(eventService, uiCalendarConfig, socketService, rhService
         vm.selectedEvent.start = startDate;
         vm.selectedEvent.end = endDate;
         updateEvent();
-        // publie l'évènement vers le serveur pour informer les RH
-        socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
     }
     function eventRender(event, element) {
         if(event.validation == 2)
@@ -138,11 +136,11 @@ function homeController(eventService, uiCalendarConfig, socketService, rhService
         vm.selectedEvent.start = startDate;
         vm.selectedEvent.end = endDate;
         updateEvent();
-        // publie l'évènement vers le serveur pour informer les RH
-        socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
     }
     function updateEvent() {
         eventService.updateEvent(vm.selectedEvent).then(function() {
+            // publie l'évènement vers le serveur pour informer les RH
+            socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
             vm.selectedCalEvent.title = vm.selectedEvent.title;
             vm.selectedCalEvent.className[0] = vm.selectedEvent.selectedType.type_code;
             vm.selectedCalEvent.typeid = vm.selectedEvent.selectedType.id;
@@ -158,7 +156,7 @@ function homeController(eventService, uiCalendarConfig, socketService, rhService
             uiCalendarConfig.calendars['absences'].fullCalendar('removeEvents', vm.selectedCalEvent._id);
             vm.showEditingEventForm = false;
             // publie l'évènement vers le serveur pour informer les RH
-            socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence modifiée', {eventid: vm.selectedEvent.id});
+            socketService.emit('modification_event', vm.user.email, vm.myRH.email, 'Absence suprimée', {eventid: vm.selectedEvent.id});
             vm.selectedEvent = {};
             vm.selectedCalEvent = {};
         });

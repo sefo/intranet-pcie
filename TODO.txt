@@ -45,12 +45,11 @@ X système de notifications sur site si connecté
     X pareil pour les evenements RH (accepté, refusé)
     X notification RH sur création absence
 X BUG: click sur home (intranet) affiche le login rapidement (remplacer le state par 'home')
+X BUG: absence doit passer A valider si changement de type + RH doit être notifiée
 -------------------
 
 BUG: sur logout, supprimer le socket avec le mail:
     se connecter avec eva, se deconnecter, se connecter avec sam, les notifications restent (sauf si la fenêtre est fermée)
-
-BUG: absence doit passer A valider si changement de type + RH doit être notifiée
 
 Historique des absences modifiées: Si user A modifie une absence, la RH doit pouvoir voir ce qui a été modifié
 
