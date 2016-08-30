@@ -5,6 +5,11 @@ module.exports = function(io) {
     socket.on('join', function(data) {
       socket.join(data.email);
     });
+    //log out = leaving channel
+    socket.on('leave', function(data) {
+      socket.leave(data.email);
+      socket.disconnect();
+    });
     //and listens to messages (to = email personne concernée)
     socket.on('modification_event', function (from, to, msg, data) {
       io.sockets.in(to).emit('notification', {

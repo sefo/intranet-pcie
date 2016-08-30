@@ -1,12 +1,13 @@
 var navigation = {
     bindings: {
-        role: '@'
+        role: '@',
+        email: '@'
     },
     controller: navigationController,
     templateUrl: 'components/navigation/navigation.template.html'
 };
 
-function navigationController($state, $window) {
+function navigationController($state, $window, socketService) {
     var vm = this;
     // Sert à savoir si on est sur la page de login
     // $states est async, la valeur n'est pas à jour ici.
@@ -14,6 +15,7 @@ function navigationController($state, $window) {
     this.state = $state;
 
     this.logout = function() {
+        socketService.emit('leave', {email: vm.email});
         delete $window.sessionStorage.token;
         $state.go('login');
     };
