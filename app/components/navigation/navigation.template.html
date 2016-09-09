@@ -2,9 +2,9 @@
     <div class="navbar-header">
         <a class="navbar-brand" ui-sref="home">Intranet</a>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="" ng-click="$ctrl.logout()">Logout</a></li>
-            <li ng-if="$ctrl.role == 'admin'"><a ui-sref="admin.creation">Créer un utilisateur</a></li>
-            <li ng-if="$ctrl.role == 'RH'"><a ui-sref="rh.absences">Demandes d'absence</a></li>
+            <li><a href="" ng-click="$ctrl.logout()"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+            <li ng-if="$ctrl.role == 'admin'"><a ui-sref="admin.creation"><span class="glyphicon glyphicon-pencil"></span> Créer un utilisateur</a></li>
+            <li ng-if="$ctrl.role == 'RH'"><a ui-sref="rh.absences"><span class="glyphicon glyphicon-tags"></span> &nbsp;Demandes d'absence</a></li>
         </ul>
     </div>
 </nav>
