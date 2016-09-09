@@ -1,3 +1,6 @@
+body {
+    background-color: #EEEEEE;
+}
 /* LOGIN */
 .page-login {
     min-height: 100%;
@@ -5,15 +8,37 @@
     display: flex;
     align-items: center;
 }
+/* NAV */
+.nav a, a:visited {
+    color: white;
+}
+ul.nav > li > a:hover, ul.nav > li > a:focus {
+    background-color: steelblue;
+}
+.navbar-pcie {
+    background-color: dodgerblue;
+    color: white;
+    -webkit-box-shadow: 0 8px 6px -6px lightgray;
+    -moz-box-shadow: 0 8px 6px -6px lightgray;
+    box-shadow: 0 8px 6px -6px lightgray;
+}
+/* GENERAL */
+.panel {
+    padding: 10px;
+    -webkit-box-shadow: 0 8px 6px -6px lightgray;
+    -moz-box-shadow: 0 8px 6px -6px lightgray;
+    box-shadow: 0 8px 6px -6px lightgray;
+}
 /* FORMULAIRES */
 section .formulaire {
     border: 1px solid #CCC;
+    background-color: white;
     -webkit-border-radius: 12px;
     -moz-border-radius: 12px;
     border-radius: 12px;
-    -webkit-box-shadow: 3px 3px 5px 6px #EEE;
-    -moz-box-shadow: 3px 3px 5px 6px #EEE;
-    box-shadow: 3px 3px 5px 6px #EEE;
+    -webkit-box-shadow: 0 8px 6px -6px lightgray;
+    -moz-box-shadow: 0 8px 6px -6px lightgray;
+    box-shadow: 0 8px 6px -6px lightgray;
 }
 .formulaire.small-formulaire {
     min-width: 250px;

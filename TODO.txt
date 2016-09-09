@@ -51,6 +51,12 @@ X BUG: sur logout, supprimer le socket avec le mail:
     (l'event leave était à l'intérieur de modification_event...)
 -------------------
 
+Un resize ou drop ne doit pas envoyer de notif. Trouver un moyen de pouvoir faire des modifs puis de les envoyer avec un clic.
+(garder le tableau des absences modifiées et afficher un bouton: des absences n'ont pas été envoyées au RH)
+rajouter un état: enregistré mais pas envoyé au RH
+
+remplacer le growl par https://angular-ui.github.io/bootstrap/#/alert
+
 Historique des absences modifiées: Si user A modifie une absence, la RH doit pouvoir voir ce qui a été modifié
 
 Si une absence a été validée puis modifiée, sur refus de la RH est-ce qu'on remet l'ancienne absence valide?
@@ -58,6 +64,8 @@ Si une absence a été validée puis modifiée, sur refus de la RH est-ce qu'on 
 Faire un garde fou si fausse manip? Ex: je modifie une absence validée par erreur
 
 -------------------
+bug: RH reçoit ses propres notifications d'absence
+routing vers components
 mettre une favicon dynamique (base64) au démarrage de l'appli et la changer sur notification
 ajouter un commentaire pour les demandes d'absences?
 système de notification par email (voir comment envoyer des mails depuis node) avec s'abonner se désabonner?
