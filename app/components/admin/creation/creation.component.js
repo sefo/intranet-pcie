@@ -1,27 +1,32 @@
-var creation = {
-    bindings: {},
-    controller: creationController,
-    templateUrl: 'components/admin/creation/creation.template.html'
-};
+(function() {
+    'use strict'
 
-function creationController($state, $window, roleService, adminService) {
-    var vm = this;
-
-    this.listeRoles = [];
-    this.utilisateur = {};
-
-    roleService.getListeRoles().then(function(data) {
-        vm.listeRoles = data.data;
-    });
-
-    this.enregistrerUtilisateur = function(utilisateur) {
-        adminService.enregistrerUtilisateur(utilisateur).then(function(data) {
-            console.log(data); //data.name = 'error' //data.detail
-        });
+    var creation = {
+        bindings: {},
+        controller: creationController,
+        templateUrl: 'components/admin/creation/creation.template.html'
     };
-};
 
-angular
-    .module('app')
-    .component('creation', creation)
-    .controller('creationController', creationController);
+    function creationController($state, $window, roleService, adminService) {
+        var vm = this;
+
+        this.listeRoles = [];
+        this.utilisateur = {};
+
+        roleService.getListeRoles().then(function(data) {
+            vm.listeRoles = data.data;
+        });
+
+        this.enregistrerUtilisateur = function(utilisateur) {
+            adminService.enregistrerUtilisateur(utilisateur).then(function(data) {
+                console.log(data); //data.name = 'error' //data.detail
+            });
+        };
+    };
+
+    angular
+        .module('app')
+        .component('creation', creation)
+        .controller('creationController', creationController);
+
+}) ();

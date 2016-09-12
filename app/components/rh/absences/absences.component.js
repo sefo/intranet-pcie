@@ -1,67 +1,72 @@
-var absences = {
-    bindings: {},
-    require: {
-        intranet: '^^intranet'
-    },
-    controller: absencesController,
-    templateUrl: 'components/rh/absences/absences.template.html'
-};
+(function() {
+    'use strict'
 
-function absencesController(rhService, NgTableParams, socketService) {
-    var vm = this;
-    this.valider = valider;
-    this.refuser = refuser;
-    this.absences = [];
-    var y = moment().format('YYYY');
+    var absences = {
+        bindings: {},
+        require: {
+            intranet: '^^intranet'
+        },
+        controller: absencesController,
+        templateUrl: 'components/rh/absences/absences.template.html'
+    };
 
-    this.$onInit = function() {
-        // user infos depuis le components parent
-        vm.user = vm.intranet.getUser();
-        // récupération des demandes d'absence'
-        rhService.getEvents(y).then(function(events) {
-            vm.absences = events.data;
-            initTable();
-        });
-    }
+    function absencesController(rhService, NgTableParams, socketService) {
+        var vm = this;
+        this.valider = valider;
+        this.refuser = refuser;
+        this.absences = [];
+        var y = moment().format('YYYY');
 
-    function valider(event) {
-        console.log(event);
-        rhService.validerAbsence(event).then(function(resultat) {
-            socketService.emit('modification_event', vm.user.email, event.email, 'Absence validée', {eventid: event.eventid});
-            updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
-            vm.tableParams.reload();
-        });
-    }
+        this.$onInit = function() {
+            // user infos depuis le components parent
+            vm.user = vm.intranet.getUser();
+            // récupération des demandes d'absence'
+            rhService.getEvents(y).then(function(events) {
+                vm.absences = events.data;
+                initTable();
+            });
+        }
 
-    function refuser(event) {
-        rhService.refuserAbsence(event).then(function(resultat) {
-            socketService.emit('modification_event', vm.user.email, event.email, 'Absence refusée', {eventid: event.eventid});
-            updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
-            vm.tableParams.reload();
-        });
-    }
+        function valider(event) {
+            console.log(event);
+            rhService.validerAbsence(event).then(function(resultat) {
+                socketService.emit('modification_event', vm.user.email, event.email, 'Absence validée', {eventid: event.eventid});
+                updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
+                vm.tableParams.reload();
+            });
+        }
 
-    function initTable() {
-        vm.tableParams = new NgTableParams({
-            page: 1,
-            count: 10
-        }, {
-            total: vm.absences.length,
-            dataset: vm.absences
-        });
-    }
+        function refuser(event) {
+            rhService.refuserAbsence(event).then(function(resultat) {
+                socketService.emit('modification_event', vm.user.email, event.email, 'Absence refusée', {eventid: event.eventid});
+                updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
+                vm.tableParams.reload();
+            });
+        }
 
-    function updateValidationValue(eventid, validation, validationid) {
-        vm.absences.forEach(function(event, index) {
-            if(event.eventid == eventid) {
-                event.validationid = validationid;
-                event.validation = validation;
-            }
-        })
-    }
-};
+        function initTable() {
+            vm.tableParams = new NgTableParams({
+                page: 1,
+                count: 10
+            }, {
+                total: vm.absences.length,
+                dataset: vm.absences
+            });
+        }
 
-angular
-    .module('app')
-    .component('rhAbsences', absences)
-    .controller('absencesController', absencesController);
+        function updateValidationValue(eventid, validation, validationid) {
+            vm.absences.forEach(function(event, index) {
+                if(event.eventid == eventid) {
+                    event.validationid = validationid;
+                    event.validation = validation;
+                }
+            })
+        }
+    };
+
+    angular
+        .module('app')
+        .component('rhAbsences', absences)
+        .controller('absencesController', absencesController);
+
+}) ();
