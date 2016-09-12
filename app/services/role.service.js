@@ -1,20 +1,15 @@
-(function() {
-    'use strict'
+function roleService($http) {
+    this.getListeRoles = function() {
+        return $http.get('/api/roles/lister').then(
+            function(response) {
+                return response.data;
+            },
+            function(response) {
+                return response;
+            });
+    };
+}
 
-    function roleService($http) {
-        this.getListeRoles = function() {
-            return $http.get('/api/roles/lister').then(
-                function(response) {
-                    return response.data;
-                },
-                function(response) {
-                    return response;
-                });
-        };
-    }
-
-    angular
-        .module('app')
-        .service('roleService', roleService);
-
-}) ();
+angular
+    .module('app')
+    .service('roleService', roleService);

@@ -1,14 +1,9 @@
-(function() {
-    'use strict'    
-    
-    function socketService(socketFactory) {
-        var socket = socketFactory();
-        socket.forward('notification');
-        return socket;
-    };
+function socketService(socketFactory) {
+    var socket = socketFactory();
+    socket.forward('notification');
+    return socket;
+};
 
-    angular
-        .module('app')
-        .factory('socketService', socketService);
-
-}) ();
+angular
+    .module('app')
+    .factory('socketService', socketService);
