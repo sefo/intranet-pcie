@@ -14,7 +14,7 @@ function config($stateProvider, $urlRouterProvider, $windowProvider, $compilePro
     .state('login',
     {
         url : '/login',
-        templateUrl : 'views/login.html',
+        template : '<login></login>',
         //component: 'login', //ui-router beta 1.0
         resolve: {
             loggedin: loggedin
@@ -23,7 +23,7 @@ function config($stateProvider, $urlRouterProvider, $windowProvider, $compilePro
     .state('home',
     {
         url : '/home',
-        templateUrl : 'views/home.html',
+        template : '<home></home>',
         resolve: {
             authenticate: authenticate
         }
@@ -40,7 +40,7 @@ function config($stateProvider, $urlRouterProvider, $windowProvider, $compilePro
     .state('admin.creation',
     {
         url : '/creation',
-        templateUrl : 'views/admin/creation.html'
+        template : '<creation></creation>'
     })
     .state('rh',
     {
@@ -54,7 +54,7 @@ function config($stateProvider, $urlRouterProvider, $windowProvider, $compilePro
     .state('rh.absences',
     {
         url : '/absences',
-        templateUrl : 'views/rh/absences.html'
+        template : '<rh-absences></rh-absences>'
     });
 }
 
