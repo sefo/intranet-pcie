@@ -56,6 +56,7 @@ Un resize ou drop ne doit pas envoyer de notif. Trouver un moyen de pouvoir fair
 rajouter un état: enregistré mais pas envoyé au RH
 
 remplacer le growl par https://angular-ui.github.io/bootstrap/#/alert
+et ajouter des growl aux services
 
 Historique des absences modifiées: Si user A modifie une absence, la RH doit pouvoir voir ce qui a été modifié
 
@@ -73,7 +74,6 @@ ajouter du jsdoc
 ! quand l'année change, faire une nouvelle requête
 voir comment accéder au site depuis un autre pc que localhost
 VALIDATION! serveur et ihm (object complet, email n'existe pas déjà)
-Ajouter des growl d'erreur et confirmation
 CRUD utilisateur en entier, liste + edit + delete (mark as inactive)
 recharger le tableau rh quand recoit une notif de modification
 recharger le calendrier quand rh valide ou refuse
