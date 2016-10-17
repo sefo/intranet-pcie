@@ -17,6 +17,7 @@
     "express-jwt-permissions": "^0.2.2",
     "jsonwebtoken": "^7.0.1",
     "pg-promise": "^5.1.0",
+    "sequelize": "^3.24.3",
     "socket.io": "^1.4.8"
   }
 }

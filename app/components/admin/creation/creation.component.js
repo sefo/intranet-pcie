@@ -11,7 +11,7 @@ function creationController($state, $window, roleService, adminService) {
     this.utilisateur = {};
 
     roleService.getListeRoles().then(function(data) {
-        vm.listeRoles = data.data;
+        vm.listeRoles = data;
     });
 
     this.enregistrerUtilisateur = function(utilisateur) {
