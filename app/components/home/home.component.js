@@ -58,7 +58,7 @@ function homeController(eventService, uiCalendarConfig, socketService, rhService
     this.$onInit = function() {
         // infos RH (pour l'instant besoin que du mail pour les notifications')
         rhService.getRH().then(function(result) {
-            vm.myRH = result.data[0];
+            vm.myRH = result[0];
         });
         // user infos depuis le components parent
         vm.user = vm.intranet.getUser();

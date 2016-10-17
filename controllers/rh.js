@@ -3,30 +3,24 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var bcrypt = require('bcrypt-nodejs');
-var pgp = require("pg-promise")();
+var models = require('../models');
 var guard = require('express-jwt-permissions')();
 
 var secret = 'n8jTwiRYBtJF25Wpk7X1fRvtxDrKs8P5lXP16DqytRwa0Pfa6omupI5YWgGjF3kUeP4F08LeklnwCQGoDMouLZcija8aRZaMEBQdrDSjRp9OGnVrfrZqosHE';
 
-var db = pgp({
-    host: 'localhost',
-    port: 5432,
-    database: 'pcie',
-    user: 'postgres',
-    password: 'root'
-});
-
 // renvoie le profile du RH
 router.get('/profile', function (req, res) {
-  var requete = "select u.email \
-        from utilisateur as u \
-        inner join role as r on r.id = u.role \
-        where r.intitule = 'RH'";
-	db.any(requete).then(function (data) {
-    res.json({data});
-  }).catch(function (error) {
-	  res.send(error);
-  });
+    models.Utilisateur.findAll(
+        { include: [{
+            model: models.Role,
+            as: 'role_utilisateur',
+            where: {
+                intitule: 'RH'
+            }
+        }]
+    }).then(function(rh) { // si 'as' ici, il faut aussi le mettre dans l'association
+        res.json(rh);
+    });
 });
 
 router.get('/absences/:y', guard.check('RH'), function (req, res) {
@@ -40,12 +34,12 @@ router.get('/absences/:y', guard.check('RH'), function (req, res) {
         inner join utilisateur u on u.id = a.utilisateur \
         inner join absence_validation v on v.id = a.validation \
         inner join absence_type t on t.id = a.type \
-        where extract(year from a.debut) = ${y}";
-	db.any(requete, parameters).then(function (data) {
-    res.json({data});
-  }).catch(function (error) {
-	  res.send(error);
-  });
+        where extract(year from a.debut) = :year";
+  models.sequelize.query(requete, { replacements: { year: parameters.y }, type: models.sequelize.QueryTypes.SELECT})
+    .then(function(absences) {
+      res.json({absences});
+    }
+  );
 });
 
 router.post('/absences/valider/', guard.check('RH'), function (req, res) {
@@ -54,15 +48,15 @@ router.post('/absences/valider/', guard.check('RH'), function (req, res) {
   parameters.eventid = req.body.eventid;
   var requete = "with update_event as ( \
       update absence set validation = 2 \
-      where id = ${eventid} and utilisateur = ${userid} \
+      where id = :eventid and utilisateur = :userid \
       returning *) \
       select a.validation, av.type from update_event as a \
       inner join absence_validation as av on av.id = a.validation;";
-	db.any(requete, parameters).then(function (data) {
-    res.json({data});
-  }).catch(function (error) {
-	  res.send(error);
-  });
+  models.sequelize.query(requete, { replacements: { eventid: parameters.eventid, userid: parameters.userid }, type: models.sequelize.QueryTypes.SELECT})
+    .then(function(data) {
+      res.json({data});
+    }
+  );
 });
 
 router.post('/absences/refuser/', guard.check('RH'), function (req, res) {
@@ -71,15 +65,15 @@ router.post('/absences/refuser/', guard.check('RH'), function (req, res) {
   parameters.eventid = req.body.eventid;
   var requete = "with update_event as ( \
       update absence set validation = 1 \
-      where id = ${eventid} and utilisateur = ${userid} \
+      where id = :eventid and utilisateur = :userid \
       returning *) \
       select a.validation, av.type from update_event as a \
       inner join absence_validation as av on av.id = a.validation;";
-	db.any(requete, parameters).then(function (data) {
-    res.json({data});
-  }).catch(function (error) {
-	  res.send(error);
-  });
+  models.sequelize.query(requete, { replacements: { eventid: parameters.eventid, userid: parameters.userid }, type: models.sequelize.QueryTypes.SELECT})
+    .then(function(data) {
+      res.json({data});
+    }
+  );
 });
 
 module.exports = router;

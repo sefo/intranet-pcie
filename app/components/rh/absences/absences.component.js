@@ -18,14 +18,13 @@ function absencesController(rhService, NgTableParams, socketService) {
         // user infos depuis le components parent
         vm.user = vm.intranet.getUser();
         // récupération des demandes d'absence'
-        rhService.getEvents(y).then(function(events) {
-            vm.absences = events.data;
+        rhService.getEvents(y).then(function(data) {
+            vm.absences = data.absences;
             initTable();
         });
     }
 
     function valider(event) {
-        console.log(event);
         rhService.validerAbsence(event).then(function(resultat) {
             socketService.emit('modification_event', vm.user.email, event.email, 'Absence validée', {eventid: event.eventid});
             updateValidationValue(event.eventid, resultat.data[0].type, resultat.data[0].validation);
