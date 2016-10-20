@@ -68,3 +68,336 @@ CREATE INDEX fki_role ON utilisateur USING btree (role);
 
 ALTER TABLE ONLY utilisateur
     ADD CONSTRAINT fk_role FOREIGN KEY (role) REFERENCES role(id);
+
+--
+-- TOC entry 184 (class 1259 OID 24618)
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE role (
+    id integer NOT NULL,
+    intitule text NOT NULL
+);
+
+
+ALTER TABLE role OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 24616)
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE role_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2127 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE role_id_seq OWNED BY role.id;
+
+
+--
+-- TOC entry 2004 (class 2604 OID 24621)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY role ALTER COLUMN id SET DEFAULT nextval('role_id_seq'::regclass);
+
+
+--
+-- TOC entry 2122 (class 0 OID 24618)
+-- Dependencies: 184
+-- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY role (id, intitule) FROM stdin;
+1	admin
+2	utilisateur
+3	RH
+\.
+
+
+--
+-- TOC entry 2128 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('role_id_seq', 3, true);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 24626)
+-- Name: pk_role; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY role
+    ADD CONSTRAINT pk_role PRIMARY KEY (id);
+
+--
+-- TOC entry 188 (class 1259 OID 24648)
+-- Name: absence_validation; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE absence_validation (
+    id integer NOT NULL,
+    type text NOT NULL
+);
+
+
+ALTER TABLE absence_validation OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 24646)
+-- Name: absence_validation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE absence_validation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE absence_validation_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2127 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: absence_validation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE absence_validation_id_seq OWNED BY absence_validation.id;
+
+
+--
+-- TOC entry 2004 (class 2604 OID 24651)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence_validation ALTER COLUMN id SET DEFAULT nextval('absence_validation_id_seq'::regclass);
+
+
+--
+-- TOC entry 2122 (class 0 OID 24648)
+-- Dependencies: 188
+-- Data for Name: absence_validation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY absence_validation (id, type) FROM stdin;
+1	Refusé
+2	Accpeté
+5	A valider
+4	Annulé par l'utilisateur
+3	A modifier
+\.
+
+
+--
+-- TOC entry 2128 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: absence_validation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('absence_validation_id_seq', 5, true);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 24656)
+-- Name: PK_VALIDATION_ABSENCE; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence_validation
+    ADD CONSTRAINT "PK_VALIDATION_ABSENCE" PRIMARY KEY (id);
+
+--
+-- TOC entry 186 (class 1259 OID 24637)
+-- Name: absence_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE absence_type (
+    id integer NOT NULL,
+    type text NOT NULL,
+    type_code character varying(5)
+);
+
+
+ALTER TABLE absence_type OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 24635)
+-- Name: absence_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE absence_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE absence_type_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2127 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: absence_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE absence_type_id_seq OWNED BY absence_type.id;
+
+
+--
+-- TOC entry 2004 (class 2604 OID 24640)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence_type ALTER COLUMN id SET DEFAULT nextval('absence_type_id_seq'::regclass);
+
+
+--
+-- TOC entry 2122 (class 0 OID 24637)
+-- Dependencies: 186
+-- Data for Name: absence_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY absence_type (id, type, type_code) FROM stdin;
+1	RTT	RTT
+2	Congé payé	CP
+3	Congé anticipé	CA
+4	Maladie	M
+\.
+
+
+--
+-- TOC entry 2128 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: absence_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('absence_type_id_seq', 4, true);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 24645)
+-- Name: PK_TYPE_ABSENCE; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence_type
+    ADD CONSTRAINT "PK_TYPE_ABSENCE" PRIMARY KEY (id);
+
+--
+-- TOC entry 190 (class 1259 OID 24659)
+-- Name: absence; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE absence (
+    id integer NOT NULL,
+    type integer NOT NULL,
+    validation integer,
+    debut date NOT NULL,
+    fin date,
+    utilisateur integer,
+    titre character varying(50)
+);
+
+
+ALTER TABLE absence OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 24657)
+-- Name: absence_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE absence_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE absence_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2129 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: absence_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE absence_id_seq OWNED BY absence.id;
+
+
+--
+-- TOC entry 2004 (class 2604 OID 24662)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence ALTER COLUMN id SET DEFAULT nextval('absence_id_seq'::regclass);
+
+
+--
+-- TOC entry 2124 (class 0 OID 24659)
+-- Dependencies: 190
+-- Data for Name: absence; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY absence (id, type, validation, debut, fin, utilisateur, titre) FROM stdin;
+4	3	2	2016-07-25	2016-08-06	1	autre
+47	3	1	2016-08-25	2016-08-27	3	Urgence
+54	1	5	2016-09-23	2016-09-23	1	test
+33	3	5	2016-08-19	2016-08-21	9	test
+55	2	5	2016-09-14	2016-09-17	3	azdcfd
+29	2	1	2016-08-12	2016-08-14	1	test
+50	1	2	2016-09-02	2016-09-02	2	dcdcd
+56	1	5	2016-09-01	2016-09-03	3	rf
+53	4	5	2016-09-01	2016-09-03	9	Maladie
+\.
+
+
+--
+-- TOC entry 2130 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: absence_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('absence_id_seq', 56, true);
+
+
+--
+-- TOC entry 2006 (class 2606 OID 24664)
+-- Name: PK_ABSENCE; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence
+    ADD CONSTRAINT "PK_ABSENCE" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2007 (class 2606 OID 24675)
+-- Name: FK_TYPE_ABSENCE; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence
+    ADD CONSTRAINT "FK_TYPE_ABSENCE" FOREIGN KEY (type) REFERENCES absence_type(id);
+
+
+--
+-- TOC entry 2008 (class 2606 OID 24680)
+-- Name: FK_VALIDATION_ABSENCE; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY absence
+    ADD CONSTRAINT "FK_VALIDATION_ABSENCE" FOREIGN KEY (validation) REFERENCES absence_validation(id);
