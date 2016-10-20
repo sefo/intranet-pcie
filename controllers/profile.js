@@ -8,7 +8,9 @@ router.get('/', function (req, res) {
     prenom: req.user.prenom,
     email: req.user.email,
     hash: req.user.hash,
-    role: req.user.role
+    role_id: req.user.role_utilisateur.id,
+    role: req.user.role_utilisateur.intitule,
+    permissions: req.user.permissions
   });
 });
 

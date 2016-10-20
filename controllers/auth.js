@@ -3,32 +3,34 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var bcrypt = require('bcrypt-nodejs');
-var pgp = require("pg-promise")();
+var models = require('../models');
 var guard = require('express-jwt-permissions')();
 
 var secret = 'n8jTwiRYBtJF25Wpk7X1fRvtxDrKs8P5lXP16DqytRwa0Pfa6omupI5YWgGjF3kUeP4F08LeklnwCQGoDMouLZcija8aRZaMEBQdrDSjRp9OGnVrfrZqosHE';
-
-var db = pgp({
-    host: 'localhost',
-    port: 5432,
-    database: 'pcie',
-    user: 'postgres',
-    password: 'root'
-});
 
 router.post('/', function (req, res) {
   var response = res;
   var request = req;
   var profile = {};
   var token = {};
-	db.one("select u.id, u.nom, u.prenom, u.hash, u.email, r.intitule as role from utilisateur u inner join role r on r.id = u.role where u.email=$1", request.body.email).then(function (data) {
-    var user = data;
+  models.Utilisateur.findOne(
+      {
+        where: {
+          email: request.body.email //attention?
+        },
+        include: [{
+          model: models.Role,
+          as: 'role_utilisateur'
+      }]
+  }).then(function(user_instance) {
+    var user = user_instance.get({ plain: true });
     var permissions = [];
     bcrypt.compare(request.body.password, user.hash, function(err, ret) {
       if(ret) {
         profile = user;
-        permissions.push(profile.role);
+        permissions.push(profile.role_utilisateur.intitule); //role_utilisateur = table de liaison renommée par sequelize
         profile.permissions = permissions;
+        profile.role = profile.role_utilisateur.intitule;
         token = jwt.sign(profile, secret, { expiresIn: 120*60 });
         user.token = token;
         response.json({user: user});
@@ -36,8 +38,6 @@ router.post('/', function (req, res) {
         response.status(401).send('Wrong user or password');
       }
     });
-  }).catch(function (error) {
-	  response.send(error);
   });
 });
 
